@@ -1,16 +1,12 @@
 public class DisplayMenu {
     public static void display() {
-        System.out.println("=====Password Generator=====");
-        System.out.println("1 - Password Length:");
-        System.out.println("2 - ");
-        System.out.println("3 - ");
-        System.out.println("4 - ");
-        System.out.println("5 - ");
-        System.out.println("6 - ");
-        System.out.println("7 - ");
-        System.out.println("8 - ");
-        System.out.println("9 - ");
-        System.out.println("10 - ");
-        System.out.println("0 - Wylacz aplikacje");
+        System.out.println("====================PASSWORD GENERATOR====================");
+        System.out.println("1 - Password Length(max 32): ");
+        System.out.println("2 - Include symbols(e.g. @#$%) ||| Y/N");
+        System.out.println("3 - Include Numbers(e.g. 123456) ||| Y/N");
+        System.out.println("4 - Include Lowercase Characters(e.g. abcdefgh) ||| Y/N");
+        System.out.println("5 - Include Uppercase Characters(e.g. ABCDEFGH) ||| Y/N");
+        System.out.println("6 - Turn off");
+        System.out.println("=========================================================");
     }
 }
