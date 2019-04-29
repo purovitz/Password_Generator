@@ -9,4 +9,13 @@ public class DisplayMenu {
         System.out.println("6 - Turn off");
         System.out.println("=========================================================");
     }
+
+    public static void displayRun() {
+        System.out.println("====================PASSWORD GENERATOR====================");
+        System.out.println("Do you want to generate a password?(Y/N)");
+        System.out.println("=========================================================");
+    }
+
+
+
 }
