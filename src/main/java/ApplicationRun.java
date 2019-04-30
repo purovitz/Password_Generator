@@ -15,12 +15,12 @@ public class ApplicationRun {
                 System.out.println("");
                 DisplayMenu.display();
                 Generator.passwordLength();
+                Generator.passwordTest();
+                Generator.includeSymbols();
                 break;
             } else {
                 isAplicationRun = false;
             }
         }
     }
-
-
 }

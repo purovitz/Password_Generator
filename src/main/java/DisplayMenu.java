@@ -6,7 +6,6 @@ public class DisplayMenu {
         System.out.println("3 - Include Numbers(e.g. 123456) ||| Y/N");
         System.out.println("4 - Include Lowercase Characters(e.g. abcdefgh) ||| Y/N");
         System.out.println("5 - Include Uppercase Characters(e.g. ABCDEFGH) ||| Y/N");
-        System.out.println("6 - Turn off");
         System.out.println("=========================================================");
     }
 
