@@ -1,15 +1,18 @@
-import org.passay.CharacterData;
-import org.passay.CharacterRule;
-import org.passay.EnglishCharacterData;
-import org.passay.PasswordGenerator;
+package generator;
 
+import java.security.SecureRandom;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class Generator {
 
-    public int passwordLengths;
+    private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
+    private static final String NUMERIC = "0123456789";
+    private static final String SPECIAL_CHARS = "!@#$%^&*_=+-/";
+    private static SecureRandom random = new SecureRandom();
+    private int passwordLengths;
 
 
     public Integer passwordLength() {
@@ -112,48 +115,29 @@ public class Generator {
         }
     }
 
-
-
-
-
-    public void generatePassword() {
+    public static String makePassword(int len, String dic) {
+        String result = "";
+        for (int i = 0; i < len; i++) {
+            int index = random.nextInt(dic.length());
+            result += dic.charAt(index);
+        }
+        return result;
+    }
+    public void generatePassword(){
         boolean includeSymbols = includeSymbols();
         boolean includeNumbers = includeNumbers();
-        boolean includeLowerCase = includeLowercaseCharacters();
-        boolean includeUpperCase = includeUppercaseCharacters();
-        PasswordGenerator gen = new PasswordGenerator();
+        boolean includeLowercase = includeLowercaseCharacters();
+        boolean includeUppercase = includeUppercaseCharacters();
 
-        CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
-        CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);
-
-
-        CharacterData upperCaseChars = EnglishCharacterData.UpperCase;
-        CharacterRule upperCaseRule = new CharacterRule(upperCaseChars);
-
-
-        CharacterData digitChars = EnglishCharacterData.Digit;
-        CharacterRule digitRule = new CharacterRule(digitChars);
-
-
-        CharacterData specialChars = new CharacterData() {
-            public String getErrorCode() {
-                return "Error";
-            }
-
-            public String getCharacters() {
-                return "!@#$%^&*()_+";
-            }
-        };
-
-        CharacterRule splCharRule = new CharacterRule(specialChars);
-
-        if (includeSymbols && includeNumbers && includeLowerCase && includeUpperCase){
-            String password = gen.generatePassword(passwordLengths, splCharRule, lowerCaseRule,
-                    upperCaseRule, digitRule);
-            System.out.println("Your password: " + password);
+        if (includeSymbols && includeNumbers && includeLowercase && includeUppercase) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, ALPHA_CAPS + ALPHA + SPECIAL_CHARS + NUMERIC);
+            System.out.println(password);
+            System.out.println();
+        }
         }
     }
-}
+
 
 
 
