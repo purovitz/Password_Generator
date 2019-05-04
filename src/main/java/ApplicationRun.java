@@ -5,6 +5,7 @@ public class ApplicationRun {
     public static void run() {
         boolean isAplicationRun = true;
         Scanner scanner = new Scanner(System.in);
+        Generator generator = new Generator();
         while (isAplicationRun) {
             DisplayMenu.displayRun();
             System.out.print(":::");
@@ -14,8 +15,8 @@ public class ApplicationRun {
                 System.out.println("Let's get started, shall we?");
                 System.out.println("");
                 DisplayMenu.display();
-                Generator.passwordLength();
-                Generator.generatePassword();
+                generator.passwordLength();
+                generator.generatePassword();
                 break;
             } else {
                 isAplicationRun = false;

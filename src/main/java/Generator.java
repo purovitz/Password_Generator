@@ -1,37 +1,36 @@
-import java.util.ArrayList;
+import org.passay.CharacterData;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
+
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Random;
+
 
 public class Generator {
 
-    public static final String lower = "abcdefghijklmnopqrstuvwxyz";
-    public static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    public static final String numbers = "0123456789";
-    public static final String symbols = "!@#$%&*()_+-=[]|,./?><";
+    public int passwordLengths;
 
-    static int passwordLengths;
 
-    public static Integer passwordLength() {
+    public Integer passwordLength() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1 - Enter the password length:");
         System.out.print(":::");
 
         try {
-            while ((passwordLengths = scanner.nextInt()) > 32) {
+            while ((passwordLengths = scanner.nextInt()) > 32 ) {
                 System.out.println("Password can be up to 32 digits long, try again :).");
                 System.out.print(":::");
             }
 
         } catch (InputMismatchException e) {
             System.out.println("You gave the number in the wrong format.");
-            Generator.passwordTest();
+            passwordTest();
         }
         return passwordLengths;
     }
 
-    public static void passwordTest(){
+    public void passwordTest(){
         try {
             passwordLength();
         } catch (InputMismatchException e){
@@ -41,7 +40,7 @@ public class Generator {
 
 
 
-    public static boolean includeSymbols() {
+    public boolean includeSymbols() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("2 - Include symbols?(Yes/No):");
         System.out.print(":::");
@@ -59,7 +58,7 @@ public class Generator {
         }
     }
 
-    public static boolean includeNumbers() {
+    public boolean includeNumbers() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("3 - Include numbers?(Yes/No):");
         System.out.print(":::");
@@ -77,7 +76,7 @@ public class Generator {
         }
     }
 
-    public static boolean includeLowercaseCharacters() {
+    public boolean includeLowercaseCharacters() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("4 - Include lowercase characters?(Yes/No):");
         System.out.print(":::");
@@ -95,7 +94,7 @@ public class Generator {
         }
     }
 
-    public static boolean includeUppercaseCharacters() {
+    public boolean includeUppercaseCharacters() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("5 - Include lowercase characters?(Yes/No):");
         System.out.print(":::");
@@ -116,48 +115,48 @@ public class Generator {
 
 
 
-    public static void generatePassword() {
-        Random random = new Random();
-        Generator generator = new Generator();
-        if (includeSymbols() && includeNumbers() && includeLowercaseCharacters() && includeUppercaseCharacters()) {
-            List<String> passwordAll = new ArrayList<String>();
-            List<String> passwordGenerated = new ArrayList<String>();
-            passwordAll.add(numbers);
-            passwordAll.add(symbols);
-            passwordAll.add(upper);
-            passwordAll.add(lower);
 
-            for (int i = 0; i < passwordLengths; i++) {
-                System.out.println(passwordAll.get(random.nextInt(passwordAll.size())));
+    public void generatePassword() {
+        boolean includeSymbols = includeSymbols();
+        boolean includeNumbers = includeNumbers();
+        boolean includeLowerCase = includeLowercaseCharacters();
+        boolean includeUpperCase = includeUppercaseCharacters();
+        PasswordGenerator gen = new PasswordGenerator();
+
+        CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
+        CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);
+
+
+        CharacterData upperCaseChars = EnglishCharacterData.UpperCase;
+        CharacterRule upperCaseRule = new CharacterRule(upperCaseChars);
+
+
+        CharacterData digitChars = EnglishCharacterData.Digit;
+        CharacterRule digitRule = new CharacterRule(digitChars);
+
+
+        CharacterData specialChars = new CharacterData() {
+            public String getErrorCode() {
+                return "Error";
             }
 
+            public String getCharacters() {
+                return "!@#$%^&*()_+";
+            }
+        };
 
+        CharacterRule splCharRule = new CharacterRule(specialChars);
 
-
+        if (includeSymbols && includeNumbers && includeLowerCase && includeUpperCase){
+            String password = gen.generatePassword(passwordLengths, splCharRule, lowerCaseRule,
+                    upperCaseRule, digitRule);
+            System.out.println("Your password: " + password);
         }
     }
-
-
 }
 
 
-/*
-public static Integer passwordLength() {
-        Scanner scanner = new Scanner(System.in);
-        boolean validInput = true;
-        System.out.println("1 - Enter the password length:");
-        System.out.print(":::");
 
-        try {
-            while ((passwordLength = scanner.nextInt()) > 32) {
-                System.out.println("Password can be up to 32 digits long, try again :).");
-                System.out.println(":::");
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("You gave the number in the wrong format.");
-        }
-        return passwordLength;
-    }
- */
+
 
 
