@@ -7,10 +7,10 @@ import java.util.Scanner;
 
 public class Generator {
 
-    private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
-    private static final String NUMERIC = "0123456789";
-    private static final String SPECIAL_CHARS = "!@#$%^&*_=+-/";
+    private static final String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String lowerCase = "abcdefghijklmnopqrstuvwxyz";
+    private static final String numbers = "0123456789";
+    private static final String symbols = "!@#$%^&*_=+-/";
     private static SecureRandom random = new SecureRandom();
     private int passwordLengths;
 
@@ -21,8 +21,8 @@ public class Generator {
         System.out.print(":::");
 
         try {
-            while ((passwordLengths = scanner.nextInt()) > 32 ) {
-                System.out.println("Password can be up to 32 digits long, try again :).");
+            while ((passwordLengths = scanner.nextInt()) > 64) {
+                System.out.println("Password can be up to 64 digits long, try again :).");
                 System.out.print(":::");
             }
 
@@ -33,14 +33,13 @@ public class Generator {
         return passwordLengths;
     }
 
-    public void passwordTest(){
+    public void passwordTest() {
         try {
             passwordLength();
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             passwordLength();
         }
     }
-
 
 
     public boolean includeSymbols() {
@@ -123,7 +122,8 @@ public class Generator {
         }
         return result;
     }
-    public void generatePassword(){
+
+    public void generatePassword() {
         boolean includeSymbols = includeSymbols();
         boolean includeNumbers = includeNumbers();
         boolean includeLowercase = includeLowercaseCharacters();
@@ -131,12 +131,79 @@ public class Generator {
 
         if (includeSymbols && includeNumbers && includeLowercase && includeUppercase) {
             System.out.println("Your generated password is:");
-            String password = makePassword(passwordLengths, ALPHA_CAPS + ALPHA + SPECIAL_CHARS + NUMERIC);
+            String password = makePassword(passwordLengths, upperCase + lowerCase + symbols + numbers);
             System.out.println(password);
-            System.out.println();
         }
+        if (includeSymbols && includeNumbers && includeLowercase) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, lowerCase + symbols + numbers);
+            System.out.println(password);
+        }
+        if (includeSymbols && includeNumbers) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, symbols + numbers);
+            System.out.println(password);
+        }
+        if (includeSymbols) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, symbols);
+            System.out.println(password);
+        }
+        if (includeSymbols && includeNumbers && includeUppercase) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, symbols + numbers + upperCase);
+            System.out.println(password);
+        }
+
+        if (includeSymbols && includeLowercase) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, symbols + lowerCase);
+            System.out.println(password);
+        }
+
+        if (includeNumbers) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, numbers);
+            System.out.println(password);
+        }
+
+        if (includeNumbers && includeLowercase) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, numbers + lowerCase);
+            System.out.println(password);
+        }
+
+        if (includeNumbers && includeLowercase && includeUppercase) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, numbers + lowerCase + upperCase);
+            System.out.println(password);
+        }
+
+        if (includeNumbers && includeUppercase) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, numbers + upperCase);
+            System.out.println(password);
+        }
+
+        if (includeLowercase) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, lowerCase);
+            System.out.println(password);
+        }
+
+        if (includeLowercase && includeUppercase) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, lowerCase + upperCase);
+            System.out.println(password);
+        }
+
+        if (includeUppercase) {
+            System.out.println("Your generated password is:");
+            String password = makePassword(passwordLengths, upperCase);
+            System.out.println(password);
         }
     }
+}
 
 
 
